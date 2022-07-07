@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from pprint import pprint
 import lxml
-from collections import defaultdict
+import json
 
 
 def url_get(
@@ -25,11 +25,8 @@ def url_get(
             break
         # pprint(next_page)
         read = requests.get('https://ru.wikipedia.org' + next_page['href'])
-        names_count_first_letter = defaultdict(int)
-        # цикл который считает по букве в списке животных
-        for names_animals_amount in animal_names:
-            names_count_first_letter[names_animals_amount[0]] += 1
-        pprint(names_count_first_letter)
+    with open('animals.json', 'w', encoding='utf8') as f:
+        json.dump(animal_names, f, ensure_ascii=False, indent=4)
 
 
 url_get()
